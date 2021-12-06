@@ -1,5 +1,8 @@
 import axios from "axios";
 import { Exercise, User } from "./interfaces";
+
+axios.defaults.withCredentials = true;
+
 const remoteURL = "http://localhost:5000/api";
 const testingURL = "http://localhost:5000/api";
 const TESTING = true;

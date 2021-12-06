@@ -24,19 +24,19 @@ db.once('open', () => console.log("Connected to mongo database"));
 db.on('error', console.error.bind(console, "MongoDB connection error: "));
 
 app.use(require('cookie-parser')());
-app.use(cors({ origin: '*' }));
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: "500mb" }));
 app.use(bodyParser.urlencoded({ limit: "500mb", extended: true, parameterLimit: 500000 }));
-
 app.use(useragent.express());
-app.use(function (req, res, next) {
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
-  next();
-});
+app.use(cors({credentials: true, origin: ['*', 'http://localhost:3000','http://localhost:3000']}));
+
+// app.use(function (req, res, next) {
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Origin, X-Requested-With, Content-Type, Accept'
+//   );
+//   next();
+// });
 
 //Use API
 app.use("/api", api);

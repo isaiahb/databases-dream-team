@@ -20,12 +20,12 @@ export const AuthProvider: React.FC<{}> = (props) => {
   const [user, setUser] = React.useState(DEFAULT_VALUE.user);
 
   React.useEffect(() => {
-    (async ()=>{
+    (async () => {
       try {
         const _user = await Api.user.me();
-          setUser(_user);
+        setUser(_user);
       }
-      catch(error: any) {
+      catch (error: any) {
         console.log(error?.response?.data);
       }
     })();

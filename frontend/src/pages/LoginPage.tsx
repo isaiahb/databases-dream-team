@@ -6,7 +6,6 @@ import Box from '@mui/material/Box';
 import { Card, Container, TextField } from '@mui/material';
 import { Button } from '@material-ui/core';
 import Api from '../Api';
-import { AuthContext } from "./AuthContext";
 import { useAuth } from './Auth';
 import { useNavigate } from 'react-router-dom';
 
