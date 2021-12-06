@@ -1,0 +1,45 @@
+{
+  "name": "litmap_web",
+  "version": "1.0.0",
+  "description": "litmaps web server",
+  "main": "index.js",
+  "scripts": {
+    "gcp-build": "npm run build",
+    "create-env": "printenv > .env",
+    "build": "",
+    "start": "node index.js",
+    "nodemon": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakebildy/litmap_web.git"
+  },
+  "keywords": [
+    "litmaps",
+    "web",
+    "server",
+    "website",
+    "site"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jakebildy/litmap_web/issues"
+  },
+  "homepage": "https://github.com/jakebildy/litmap_web#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^8.6.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "express-useragent": "^1.0.15",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.27.0",
+    "mongoose": "^6.0.14",
+    "morgan": "^1.10.0"
+  }
+}
