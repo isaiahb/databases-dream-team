@@ -1,5 +1,4 @@
 import React from 'react';
-import Api from '../Api';
 import { User } from '../interfaces';
 
 interface AuthProps {

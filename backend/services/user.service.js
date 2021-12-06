@@ -15,7 +15,6 @@ async function updateProfile(user, update) {
 async function login(email, password) {
   
   const user = await User.findOne({email});
-  console.log("login", user);
   if (!user) throw "no user exists with the email: " + email;
   if (await bcrypt.compare(password, user.password)) {
     return user;

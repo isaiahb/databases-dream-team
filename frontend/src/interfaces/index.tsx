@@ -36,25 +36,35 @@ export interface CompletedWorkout {
 }
 
 export interface OneRepMax {
-  oneRepMaxID: string,
+  _id: string,
+
+  oneRepMaxID?: string,
   email: string,
   exerciseName: string,
   weight: number,
+
+  dateComplete: Date,
 }
 
 export interface WorkoutSet {
-  setID: string,
-  workoutID: string,
-  exerciseName: string,
+  setID?: string,
+  workoutID?: string,
+  exerciseName?: string,
+
   weight: number,
   reps: number,
-  index: number,
+  index?: number,
 }
 
 export interface Goal {
-  goalID: string,
-  setID: string,
-  email: string,
-  isComplete: boolean,
-  createdDate: Date,
+  _id: string,
+
+  goalID?: string,
+  setID?: string,
+  email?: String,
+  isComplete?: boolean,
+  createdDate?: Date,
+
+  exerciseName: string,
+  set: WorkoutSet
 }

@@ -1,8 +1,3 @@
-//login #with text code, or phonenumber + password
-//signup #first choose phone number && password
-//is phone number valid
-//verify phone number
-
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");

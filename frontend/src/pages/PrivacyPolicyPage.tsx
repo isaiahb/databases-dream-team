@@ -1,4 +1,3 @@
-import Nav from "./components/Nav";
 import { Container } from "@mui/material";
 import SideMenu from "./SideMenu";
 

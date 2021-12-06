@@ -1,60 +1,48 @@
 import { Typography, Box, TextField, Button } from "@mui/material";
 import * as React from 'react';
-import { useAuth } from "./Auth";
 
-import PropTypes from 'prop-types';
 import SideMenu from "./SideMenu";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
 import { Exercise } from "../interfaces";
 import Api from "../Api";
 
 function ExerciseList() {
 
-  const defaultExercises: Exercise[] = [
-    {exerciseName: "Squat", muscleGroup: "quads, glutes, hamstrings"},
-    {exerciseName: "Deadlifts", muscleGroup: "quads, glutes, hamstrings, lower-back, upper-back"},
-    {exerciseName: "Bench", muscleGroup: "Pectorials, Biceps, Triceps, Anterior-deltoids"},
-  ];
+  const [exercises, setExercises] = React.useState<Exercise[]>([]);
 
-  const [exercises, setExercises] = React.useState(defaultExercises);
-
+  // TODO api to search bases off of name and muscle group
   const fetchExercises = async () => {
     try {
       const exercises = await Api.exercise.getAll();
-      console.log("all exercises for user: ", exercises);
       setExercises(exercises);
     }
-    catch(error) {
+    catch (error) {
 
     }
   }
 
-  React.useEffect(()=>{
-    // TODO: Fetch exercises
-    (async ()=>{
+  React.useEffect(() => {
+    (async () => {
       fetchExercises();
     })();
   }, [])
-  
+
   return (
     <List sx={{ paddingTop: "30px", width: '100%', maxWidth: 500, bgcolor: 'background.paper' }}>
       <AddExercisesListItem refresh={fetchExercises} />
-      {exercises.map((exercise)=>{
+      {exercises.map((exercise) => {
         return (
-          <Box>
-              <Divider />
-              <ExercisesListItem exercise={exercise} key={exercise.exerciseName} />
-
+          <Box key={exercise.exerciseName}>
+            <Divider />
+            <ExercisesListItem exercise={exercise}  />
           </Box>
         );
       })}
       <Divider />
-      
+
     </List>
   );
 }
@@ -82,7 +70,7 @@ const ExercisesListItem: React.FC<{ exercise: Exercise }> = ({ exercise }) => {
   );
 }
 
-const AddExercisesListItem: React.FC<{refresh: any}> = ({refresh}) => {
+const AddExercisesListItem: React.FC<{ refresh: any }> = ({ refresh }) => {
   const [exerciseName, setExerciseName] = React.useState("");
   const [muscleGroup, setMuscleGroup] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
@@ -107,11 +95,11 @@ const AddExercisesListItem: React.FC<{refresh: any}> = ({refresh}) => {
       setExerciseName("")
       setMuscleGroup("")
       setErrorMessage("")
-      const exercise = await Api.exercise.create({exerciseName, muscleGroup});
+      const exercise = await Api.exercise.create({ exerciseName, muscleGroup });
       console.log("created exercise", exercise);
       if (refresh) refresh();
     }
-    catch(error: any) {
+    catch (error: any) {
       console.log(error?.response?.data ?? error);
       setErrorMessage(error?.response?.data ?? error);
     }
@@ -128,22 +116,17 @@ const AddExercisesListItem: React.FC<{refresh: any}> = ({refresh}) => {
           primary="Add new exercise"
         />
         <Box display="flex" flexDirection="row">
-          <TextField value={exerciseName} onChange={onChanged} label="name" style={{ paddingRight: "10px" }} />
-          <TextField value={muscleGroup} onChange={onChanged2} label="muscle groups" style={{ paddingRight: "10px" }} />
-          <Button onClick={addExercise} variant="outlined" size="small" disabled={loading}>{loading ? "loading" : "Add"}</Button>
+          <TextField size="small" value={exerciseName} onChange={onChanged} label="name" style={{ paddingRight: "10px" }} />
+          <TextField size="small" value={muscleGroup} onChange={onChanged2} label="muscle groups" style={{ paddingRight: "10px" }} />
+          <Button onClick={addExercise} variant="contained" size="small" disabled={loading}>{loading ? "loading" : "Add"}</Button>
         </Box>
-          {errorMessage ? <Typography  paddingBottom="10px" paddingTop="5px" color="red">{errorMessage}</Typography> : <Box />}
+        {errorMessage ? <Typography paddingBottom="10px" paddingTop="5px" color="red">{errorMessage}</Typography> : <Box />}
       </Box>
     </ListItem>
   );
 }
 
 const ExercisesPage: React.FC<{}> = (props) => {
-  const { user } = useAuth();
-  // const navigate = useNavigate();
-
-  console.log("auth context user:", user);
-
   return (
     <SideMenu>
       <Box>
@@ -154,9 +137,9 @@ const ExercisesPage: React.FC<{}> = (props) => {
         View or add new exercises, search for exercise by name, or muscle group
       </Typography>
       <Box display="flex" flexDirection="row">
-        <TextField label="search name" style={{ paddingRight: "10px" }} />
-        <TextField label="search muscle group" style={{ paddingRight: "10px" }} />
-        <Button variant="outlined" size="small">Search</Button>
+        <TextField size="small" label="search name" style={{ paddingRight: "10px" }} />
+        <TextField size="small" label="search muscle group" style={{ paddingRight: "10px" }} />
+        <Button variant="contained" size="small">Search</Button>
       </Box>
       <ExerciseList />
 

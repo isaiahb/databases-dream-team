@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Exercise, User } from "./interfaces";
+import { Exercise, Goal, OneRepMax, User } from "./interfaces";
 
 axios.defaults.withCredentials = true;
 
@@ -24,16 +24,6 @@ const Api = {
       const response = await axios.delete(baseURL + "/exercise/delete/" + exercise.exerciseName);
       return response.data;
     },
-
-    // getByMuscleGroup: async (muscleGroup: string): Promise<Exercise[]> => {
-    //   const response = await axios.get(baseURL + "/exercise/muscle-group/" + muscleGroup);
-    //   return response.data;
-    // },
-
-    // getByName: async (name: String): Promise<Exercise> => {
-    //   const response = await axios.get(baseURL + "/exercise/name/" + name);
-    //   return response.data;
-    // }
   },
 
   user: {
@@ -66,31 +56,39 @@ const Api = {
     },
   },
 
-  // oneRepMax: {
-  //   getAll: async (): Promise<Exercise[]> => {
-  //     const response = await axios.get(baseURL + "/one-rep-max/all/");
-  //     return response.data;
-  //   },
-  //   getByExerciseName: async (exerciseName: string): Promise<Exercise[]> => {
-  //     const response = await axios.get(baseURL + "/one-rep-max/exercise-name/" + exerciseName);
-  //     return response.data;
-  //   },
-  // },
+  goals: {
+    getMyGoals: async (): Promise<Goal[]> => {
+      const response = await axios.get(baseURL + "/goals/my-goals/");
+      return response.data;
+    },
+ 
+    create: async (exerciseName: String, reps: Number, weight: Number): Promise<Goal> => {
+      const response = await axios.post(baseURL + "/goals/create/", {exerciseName, reps, weight});
+      return response.data;
+    },
 
-  // goals: {
-  //   getAll: async (): Promise<Exercise[]> => {
-  //     const response = await axios.get(baseURL + "/goals/all/");
-  //     return response.data;
-  //   },
-  //   getByExerciseName: async (exerciseName: string): Promise<Exercise[]> => {
-  //     const response = await axios.get(baseURL + "/goals/exercise-name/" + exerciseName);
-  //     return response.data;
-  //   },
-  //   create: async (): Promise<Exercise[]> => {
-  //     const response = await axios.get(baseURL + "/goals/create/");
-  //     return response.data;
-  //   },
-  // },
+    delete: async (id: String): Promise<Goal> => {
+      const response = await axios.delete(baseURL + "/goals/delete/"+id);
+      return response.data;
+    },
+  },
+
+  oneRepMax: {
+    getMyOneRepMaxs: async (): Promise<OneRepMax[]> => {
+      const response = await axios.get(baseURL + "/one-rep-max/my/");
+      return response.data;
+    },
+ 
+    create: async (exerciseName: String, weight: Number): Promise<OneRepMax> => {
+      const response = await axios.post(baseURL + "/one-rep-max/create/", {exerciseName, weight});
+      return response.data;
+    },
+
+    delete: async (id: String): Promise<Goal> => {
+      const response = await axios.delete(baseURL + "/one-rep-max/delete/"+id);
+      return response.data;
+    },
+  },
 
 }
 
