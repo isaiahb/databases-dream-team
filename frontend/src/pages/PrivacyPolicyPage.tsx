@@ -1,11 +1,12 @@
 import Nav from "./components/Nav";
 import { Container } from "@mui/material";
+import SideMenu from "./SideMenu";
 
 function PrivacyPolicyPage() {
 
   return (
-    <div>
-      <Nav />
+    <SideMenu>
+
       <Container>
         <h1>Privacy Policy</h1>
         <p>
@@ -19,7 +20,8 @@ function PrivacyPolicyPage() {
           Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device's internal memory. We use this to store login data. If you choose to refuse our cookies, you may not be able to use some portions of this Service.
         </p>
       </Container>
-    </div>
+    </SideMenu>
+
   );
 }
 

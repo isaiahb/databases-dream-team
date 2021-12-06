@@ -30,13 +30,6 @@ app.use(bodyParser.urlencoded({ limit: "500mb", extended: true, parameterLimit: 
 app.use(useragent.express());
 app.use(cors({credentials: true, origin: ['*', 'http://localhost:3000','http://localhost:3000']}));
 
-// app.use(function (req, res, next) {
-//   res.header(
-//     'Access-Control-Allow-Headers',
-//     'Origin, X-Requested-With, Content-Type, Accept'
-//   );
-//   next();
-// });
 
 //Use API
 app.use("/api", api);

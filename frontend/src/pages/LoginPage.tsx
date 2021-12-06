@@ -8,6 +8,7 @@ import { Button } from '@material-ui/core';
 import Api from '../Api';
 import { useAuth } from './Auth';
 import { useNavigate } from 'react-router-dom';
+import SideMenu from './SideMenu';
 
 function LoginPage() {
   const [loading, setLoading] = React.useState(true);
@@ -29,7 +30,6 @@ function LoginPage() {
     try {
       setError("");
       const user = await Api.auth.login(email, password);
-      console.log(user);
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
       navigate('/dashboard');
@@ -49,28 +49,32 @@ function LoginPage() {
 
 
   return (
-    <Container>
-      <Box height={"300px"} width="500px">
-        <Card>
-          <Box padding="30px" height={"300px"} display="flex" flexDirection="column" alignContent="center" justifyContent="center">
-            <Typography variant="h4"> Login </Typography>
-            <Box flexGrow={1} />
+    <SideMenu>
 
-            {/* Text fields */}
-            <Box display="flex" flexDirection="column" width="100%" alignContent="center" justifyContent="center">
-              <TextField id="outlined-basic" label="Email" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onEmailChanged} />
-              <TextField id="outlined-basic" label="Password" type="password" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onPasswordChanged} />
-              <Button variant="contained" onClick={_login}>Login</Button>
-              {error ? <Typography paddingTop="20px" color="red">{error}</Typography> : <Box />}
-            </Box>
+      <Container>
+        <Box height={"300px"} width="500px">
+          <Card>
+            <Box padding="30px" height={"300px"} display="flex" flexDirection="column" alignContent="center" justifyContent="center">
+              <Typography variant="h4"> Login </Typography>
+              <Box flexGrow={1} />
 
-            <Box flexGrow={1} />
-            <Typography paddingRight="5px">Not a user? <Link to="/signup">Signup</Link></Typography>
-            <Box flexGrow={1} />
-          </Box >
-        </Card>
-      </Box>
-    </Container>
+              {/* Text fields */}
+              <Box display="flex" flexDirection="column" width="100%" alignContent="center" justifyContent="center">
+                <TextField id="outlined-basic" label="Email" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onEmailChanged} />
+                <TextField id="outlined-basic" label="Password" type="password" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onPasswordChanged} />
+                <Button variant="contained" onClick={_login}>Login</Button>
+                {error ? <Typography paddingTop="20px" color="red">{error}</Typography> : <Box />}
+              </Box>
+
+              <Box flexGrow={1} />
+              <Typography paddingRight="5px">Not a user? <Link to="/signup">Signup</Link></Typography>
+              <Box flexGrow={1} />
+            </Box >
+          </Card>
+        </Box>
+      </Container>
+    </SideMenu>
+
   );
 }
 

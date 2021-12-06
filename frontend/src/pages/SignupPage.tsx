@@ -9,6 +9,7 @@ import Api from '../Api';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import DateAdapter from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import SideMenu from './SideMenu';
 
 function SignupPage() {
   const [loading, setLoading] = React.useState(true);
@@ -56,52 +57,54 @@ function SignupPage() {
   );
 
   return (
-    <Container>
-      <LocalizationProvider dateAdapter={DateAdapter}>
-        <Box height={"300px"} width="500px">
-          <Card>
-            <Box padding="30px" minHeight={"300px"} display="flex" flexDirection="column" alignContent="center" justifyContent="center">
-              <Typography variant="h4"> Signup </Typography>
-              <Box flexGrow={1} />
+    <SideMenu>
 
-              {/* Text fields */}
-              <Box display="flex" flexDirection="column" width="100%" alignContent="center" justifyContent="center">
+      <Container>
+        <LocalizationProvider dateAdapter={DateAdapter}>
+          <Box height={"300px"} width="500px">
+            <Card>
+              <Box padding="30px" minHeight={"300px"} display="flex" flexDirection="column" alignContent="center" justifyContent="center">
+                <Typography variant="h4"> Signup </Typography>
+                <Box flexGrow={1} />
 
-                <Box display="flex" flexDirection="row" width="100%" alignContent="center" justifyContent="center">
-                  <TextField id="outlined-basic" label="First Name" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onFirstNameChanged} />
-                  <TextField id="outlined-basic" label="Last Name" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onLastNameChanged} />
-                </Box>
+                {/* Text fields */}
+                <Box display="flex" flexDirection="column" width="100%" alignContent="center" justifyContent="center">
 
-                <Box display="flex" flexDirection="row" width="100%" alignContent="center" justifyContent="center">
-                  <TextField id="outlined-basic" label="Email" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onEmailChanged} />
-                  <TextField id="outlined-basic" label="Password" type="password" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onPasswordChanged} />
-                </Box>
+                  <Box display="flex" flexDirection="row" width="100%" alignContent="center" justifyContent="center">
+                    <TextField id="outlined-basic" label="First Name" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onFirstNameChanged} />
+                    <TextField id="outlined-basic" label="Last Name" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onLastNameChanged} />
+                  </Box>
 
-                <Box display="flex" flexDirection="row" width="100%" alignContent="center" justifyContent="center">
-                  {/* <TextField id="outlined-basic" label="Birthday" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onDOBChanged} /> */}
-                  <MobileDatePicker
-                    label="Date of birth"
-                    inputFormat="MMMM/DD/yyyy"
-                    value={dOB}
-                    onChange={(newValue: any) => {
-                      console.log(newValue._i);
-                      setDOB(newValue._i);
-                    }}
-                    renderInput={(params) => <TextField size="small" margin="dense" fullWidth={true} {...params} />}
-                  />
-                  <FormControl fullWidth size="small" margin="dense" >
-                    <InputLabel>Sex</InputLabel>
-                    <Select
-                      value={sex}
-                      label="Sex"
-                      onChange={onSexChanged}
-                    >
-                      <MenuItem value={"Female"}>Female</MenuItem>
-                      <MenuItem value={"Male"}>Male</MenuItem>
-                      <MenuItem value={"Other"}>Other</MenuItem>
-                    </Select>
-                  </FormControl>
-                  {/* <TextField
+                  <Box display="flex" flexDirection="row" width="100%" alignContent="center" justifyContent="center">
+                    <TextField id="outlined-basic" label="Email" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onEmailChanged} />
+                    <TextField id="outlined-basic" label="Password" type="password" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onPasswordChanged} />
+                  </Box>
+
+                  <Box display="flex" flexDirection="row" width="100%" alignContent="center" justifyContent="center">
+                    {/* <TextField id="outlined-basic" label="Birthday" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onDOBChanged} /> */}
+                    <MobileDatePicker
+                      label="Date of birth"
+                      inputFormat="MMMM/DD/yyyy"
+                      value={dOB}
+                      onChange={(newValue: any) => {
+                        console.log(newValue._i);
+                        setDOB(newValue._i);
+                      }}
+                      renderInput={(params) => <TextField size="small" margin="dense" fullWidth={true} {...params} />}
+                    />
+                    <FormControl fullWidth size="small" margin="dense" >
+                      <InputLabel>Sex</InputLabel>
+                      <Select
+                        value={sex}
+                        label="Sex"
+                        onChange={onSexChanged}
+                      >
+                        <MenuItem value={"Female"}>Female</MenuItem>
+                        <MenuItem value={"Male"}>Male</MenuItem>
+                        <MenuItem value={"Other"}>Other</MenuItem>
+                      </Select>
+                    </FormControl>
+                    {/* <TextField
                     select
                     label="Select"
                     value={sex}
@@ -115,24 +118,26 @@ function SignupPage() {
                     ))}
                   </TextField> */}
 
+                  </Box>
+
+                  <TextField type="number" label="Weight" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onWeightChanged}
+                  />
+
+                  <Button variant="contained" onClick={signup}>Signup</Button>
+
+                  {error ? <Typography paddingTop="20px" paddingBottom="20px" color="red">{error}</Typography> : <Box />}
                 </Box>
 
-                <TextField type="number" label="Weight" variant="outlined" size="small" fullWidth={true} margin="dense" onChange={onWeightChanged}
-                />
+                <Box flexGrow={1} />
+                <Typography paddingRight="5px">Already have an account? <Link to="/login">Login</Link></Typography>
+                <Box flexGrow={1} />
+              </Box >
+            </Card>
+          </Box>
+        </LocalizationProvider>
+      </Container>
+    </SideMenu>
 
-                <Button variant="contained" onClick={signup}>Signup</Button>
-
-                {error ? <Typography paddingTop="20px" paddingBottom="20px" color="red">{error}</Typography> : <Box />}
-              </Box>
-
-              <Box flexGrow={1} />
-              <Typography paddingRight="5px">Already have an account? <Link to="/login">Login</Link></Typography>
-              <Box flexGrow={1} />
-            </Box >
-          </Card>
-        </Box>
-      </LocalizationProvider>
-    </Container>
   );
 }
 
