@@ -10,6 +10,7 @@ import DashboardPage from './pages/DashboardPage';
 import ExercisesPage from './pages/ExercisesPage';
 import GoalsPage from './pages/GoalsPage';
 import OneRepMaxPage from './pages/OneRepMaxPage';
+import WorkoutPlanPage from './pages/WorkoutPlanPage';
 
 function App() {
   // TODO load initialState/user from cookies
@@ -56,6 +57,7 @@ function AppRoutes() {
         <Route path="/dashboard/" element={<DashboardPage />} />
         <Route path="/exercises/" element={<ExercisesPage />} />
         <Route path="/one-rep-max/" element={<OneRepMaxPage />} />
+        <Route path="/workout-plans/" element={<WorkoutPlanPage />} />
         <Route path="/goals/" element={<GoalsPage />} />
         <Route path="/login/" element={<LoginPage />} />
         <Route path="/signup/" element={<SignupPage />} />

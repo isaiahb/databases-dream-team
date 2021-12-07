@@ -15,14 +15,63 @@ export interface Exercise {
   muscleGroup: string,
 }
 
-export interface Workout {
-  workoutID: string,
-  email: string,
+export interface WorkoutPlan {
+  _id?: string,
+  workoutID?: string,
+  email?: string,
+  user?: User,
+  
+  name: string,
+  sets: WorkoutSet[],
 }
 
-export interface UserCreatedWorkout {
-  workoutID: string,
+export class Plan implements WorkoutPlan {
+  _id?: string | undefined;
+  workoutID?: string | undefined;
+  email?: string | undefined;
+  user?: User | undefined;
+
+  name: string;
+  sets: WorkoutSet[];
+  lifts: Lift[];
+
+  constructor(workoutPlan: WorkoutPlan) {
+    this.workoutID = workoutPlan.workoutID;
+    this.email = workoutPlan.email;
+    this.user = workoutPlan.user;
+    this.name = workoutPlan.name;
+    this.sets = workoutPlan.sets || [];
+    this.lifts = [];
+
+    const liftMap: any = {};
+    const names: Set<string> = new Set();
+
+    for (const set of this.sets) {
+      if (!(set?.exerciseName)) return;
+      liftMap[set.exerciseName] = liftMap[set.exerciseName] ?? [];
+      liftMap[set.exerciseName].push(set);
+      names.add(set.exerciseName);
+    }
+
+    for (const name of Array.from(names.values())) {
+      // TODO: sort sets in  order if needed.
+      const _lift = {
+        index: this.lifts.length,
+        exerciseName: name,
+        sets: liftMap[name],
+      }
+      this.lifts.push(_lift);
+    }
+  }
+
 }
+
+export interface Lift {
+  index: number,
+  exerciseName: string,
+  sets: WorkoutSet[],
+}
+
 
 export interface SuggestedWorkout {
   workoutID: string,

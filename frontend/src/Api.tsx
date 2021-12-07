@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Exercise, Goal, OneRepMax, User } from "./interfaces";
+import { Exercise, Goal, OneRepMax, User, WorkoutPlan, WorkoutSet } from "./interfaces";
 
 axios.defaults.withCredentials = true;
 
@@ -84,8 +84,25 @@ const Api = {
       return response.data;
     },
 
-    delete: async (id: String): Promise<Goal> => {
+    delete: async (id: string): Promise<Goal> => {
       const response = await axios.delete(baseURL + "/one-rep-max/delete/"+id);
+      return response.data;
+    },
+  },
+
+  workout: {
+    getMyWorkoutPlans: async (): Promise<WorkoutPlan[]> => {
+      const response = await axios.get(baseURL + "/workout/my-plans/");
+      return response.data;
+    },
+ 
+    createPlan: async (name: string, sets: WorkoutSet[]): Promise<WorkoutPlan> => {
+      const response = await axios.post(baseURL + "/workout/create-plan/", {name, sets});
+      return response.data;
+    },
+
+    deletePlan: async (id: String): Promise<WorkoutPlan> => {
+      const response = await axios.delete(baseURL + "/workout/delete-plan/"+id);
       return response.data;
     },
   },
